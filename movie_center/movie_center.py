@@ -36,4 +36,12 @@ pitch_perfect3 = media.Movie("PITCH PERFECT 3 \"Eyes On Me\"", "Comedy, Kids, Fa
 
 movies = [jurassic_world, coco, star_world, x_men, harrypotter, pitch_perfect3]
 
-fresh_tomatoes.open_movies_page(movies)
+#fresh_tomatoes.open_movies_page(movies)
+
+print media.Movie.__doc__
+
+print media.Movie.__name__
+
+print fresh_tomatoes.os.__all__
+
+print fresh_tomatoes.os.__doc__

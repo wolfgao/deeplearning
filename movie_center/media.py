@@ -2,6 +2,8 @@
 import webbrowser
 
 class Movie():
+
+	''' This is a call to define all attributes for movies'''
 	def __init__(self, movie_title, movie_storyline, poster_image_url, trailer_youtube_url):
 		self.title = movie_title
 		self.storyline = movie_storyline
