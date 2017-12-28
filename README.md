@@ -14,6 +14,6 @@ You just in console to put this command below
 python entertainment_center.py
 ```
 
-There is a very useful document by Google, I strongly share with all friends here [Google开源项目风格指南]（
-http://zh-google-styleguide.readthedocs.io/en/latest/contents/）
+There is a very useful document by Google, I strongly share with all friends here [Google开源项目风格指南](
+http://zh-google-styleguide.readthedocs.io/en/latest/contents/)
 
