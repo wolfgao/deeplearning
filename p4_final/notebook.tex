@@ -1,0 +1,999 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Titanic\_passengers\_analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{建立问题和设定目标}\label{ux5efaux7acbux95eeux9898ux548cux8bbeux5b9aux76eeux6807}
+
+首先这是一个数据分析的练习项目，我选择了泰坦尼克船客的数据进行分析。
+
+\subsubsection{提出问题}\label{ux63d0ux51faux95eeux9898}
+
+是什么因素导致高概率的存活？是否和性别，年龄，船舱级别或者其他任何因素有关？
+如果回答这个问题，我们将从\textbf{性别，年龄，船舱级别，兄弟姐妹个数，父母或者还在在船个数来计算，最后乘客票的花费}。
+
+    \subsection{数据加工和数据探索}\label{ux6570ux636eux52a0ux5de5ux548cux6570ux636eux63a2ux7d22}
+
+\subsubsection{-
+数据获取和数据概览}\label{ux6570ux636eux83b7ux53d6ux548cux6570ux636eux6982ux89c8}
+
+本案例分析的所有数据来自\href{https://www.kaggle.com/c/titanic/data}{Kaggle
+网站}, 该网站对数据的说明如下：
+
+\begin{verbatim}
+Variable    Definition  Key
+- survival  Survival    0 = No, 1 = Yes
+- pclass    Ticket class    1 = 1st, 2 = 2nd, 3 = 3rd
+- sex       Sex 
+- Age       Age in years    
+- sibsp # of siblings / spouses aboard the Titanic  
+- parch # of parents / children aboard the Titanic  
+- ticket    Ticket number   
+- fare  Passenger fare  
+- cabin Cabin number    
+- embarked  Port of Embarkation C = Cherbourg, Q = Queenstown, S = Southampton
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}导入各种数据分析和画图模块}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k+kn}{as} \PY{n+nn}{sns}
+          
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          \PY{c+c1}{\PYZsh{}use read\PYZus{}csv() to get all data}
+          \PY{n}{file\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train.csv}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{titanic\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{)}
+          
+          \PY{k}{print} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+       PassengerId    Survived      Pclass         Age       SibSp  \textbackslash{}
+count   891.000000  891.000000  891.000000  714.000000  891.000000   
+mean    446.000000    0.383838    2.308642   29.699118    0.523008   
+std     257.353842    0.486592    0.836071   14.526497    1.102743   
+min       1.000000    0.000000    1.000000    0.420000    0.000000   
+25\%     223.500000    0.000000    2.000000   20.125000    0.000000   
+50\%     446.000000    0.000000    3.000000   28.000000    0.000000   
+75\%     668.500000    1.000000    3.000000   38.000000    1.000000   
+max     891.000000    1.000000    3.000000   80.000000    8.000000   
+
+            Parch        Fare  
+count  891.000000  891.000000  
+mean     0.381594   32.204208  
+std      0.806057   49.693429  
+min      0.000000    0.000000  
+25\%      0.000000    7.910400  
+50\%      0.000000   14.454200  
+75\%      0.000000   31.000000  
+max      6.000000  512.329200  
+   PassengerId  Survived  Pclass  \textbackslash{}
+0            1         0       3   
+1            2         1       1   
+2            3         1       3   
+3            4         1       1   
+4            5         0       3   
+
+                                                Name     Sex   Age  SibSp  \textbackslash{}
+0                            Braund, Mr. Owen Harris    male  22.0      1   
+1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
+2                             Heikkinen, Miss. Laina  female  26.0      0   
+3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+4                           Allen, Mr. William Henry    male  35.0      0   
+
+   Parch            Ticket     Fare Cabin Embarked  
+0      0         A/5 21171   7.2500   NaN        S  
+1      0          PC 17599  71.2833   C85        C  
+2      0  STON/O2. 3101282   7.9250   NaN        S  
+3      0            113803  53.1000  C123        S  
+4      0            373450   8.0500   NaN        S  
+
+    \end{Verbatim}
+
+    从上面的信息看，总共有891个记录，或者说有891个乘客。另外发现Age数据不全，总共才714个记录，另外Cabin和Embarked数据也不全，我们需要想办法补充这部分数据。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{k}{print} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+          \PY{n}{total\PYZus{}no\PYZus{}survived\PYZus{}num} \PY{o}{=} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{total\PYZus{}survived\PYZus{}num} \PY{o}{=} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Survived
+0    549
+1    342
+dtype: int64
+
+    \end{Verbatim}
+
+    在当前这份训练数据里面，现这891个乘客到底只有342人生还，549人丧生，整体存活率是38\%，死亡率是62\%，具体哪些因素和死亡率有关，我们需要一步步来进行数据分析。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{p}{[}\PY{n}{total\PYZus{}no\PYZus{}survived\PYZus{}num}\PY{p}{,} \PY{n}{total\PYZus{}survived\PYZus{}num}\PY{p}{]}\PY{p}{,}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{autopct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}1.00f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survival rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{- 数据探索}\label{ux6570ux636eux63a2ux7d22}
+
+\paragraph{- 性别}\label{ux6027ux522b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{c+c1}{\PYZsh{}尝试用sns画图，分析不同性别的比例和不同性别的生还比例}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{axis1}\PY{p}{,}\PY{n}{axis2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} 
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}df}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis1}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}用Sex做横轴，看一下Survived的数据}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}df}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sex     Survived
+female  0            81
+        1           233
+male    0           468
+        1           109
+dtype: int64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}223}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1bf7a090>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    从上图我们可以明显看出男性存活的总数几乎死亡的1/4，而女性存活的数目差不多是死亡人数的一倍多。这个反映了当时的社会还是非常文明，当遇到危险或者灾难的时候，男人们比较绅士，女人先走，先救女人，女人获得了比男性几倍的生还几率。
+我们再看看到底男性和女性的生还比例到底是多少？
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{c+c1}{\PYZsh{}女性的生还比例}
+          \PY{n}{total\PYZus{}female\PYZus{}survived} \PY{o}{=} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{total\PYZus{}female\PYZus{}dead} \PY{o}{=} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{female\PYZus{}survived\PYZus{}rate} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{total\PYZus{}female\PYZus{}survived}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{total\PYZus{}female\PYZus{}dead}\PY{o}{+}\PY{n}{total\PYZus{}female\PYZus{}survived}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{女性的生还比例：}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{k}{female\PYZus{}survived\PYZus{}rate}
+          
+          \PY{c+c1}{\PYZsh{}男性的生还比例}
+          \PY{n}{total\PYZus{}male\PYZus{}survived} \PY{o}{=} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+          \PY{n}{total\PYZus{}male\PYZus{}dead} \PY{o}{=} \PY{n}{titanic\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+          \PY{n}{male\PYZus{}survived\PYZus{}rate} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{total\PYZus{}male\PYZus{}survived}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{total\PYZus{}male\PYZus{}dead}\PY{o}{+}\PY{n}{total\PYZus{}male\PYZus{}survived}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{男性的生还比例：}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{k}{male\PYZus{}survived\PYZus{}rate}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+女性的生还比例：0.742038
+男性的生还比例：0.188908
+
+    \end{Verbatim}
+
+    正如前面图所示，女性的生坏比例比男性高4倍还多。那么还有哪些方面我们可以继续挖掘一些，下面我们将分别从年龄/船舱级别/是否有兄弟姐妹/出发港口分别来看看生还比例。
+
+\paragraph{- 年龄}\label{ux5e74ux9f84}
+
+年龄的数据看，一方面0.42岁到80岁不等，按照这个划分太细，得不出什么结论，因此下面将年龄划分几个部分来看看：
+- 0～12岁：儿童； - 13～18岁：青少年，基本上未婚； -
+19～59岁，成年，行为完全可以自理，有的可能已经有孩子，具有责任感； -
+60岁到80岁：老年，可能有孙子了，可能老伴已经离开了。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{c+c1}{\PYZsh{}先看一下当前年龄相关的统计数据}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    714.000000
+mean      29.699118
+std       14.526497
+min        0.420000
+25\%       20.125000
+50\%       28.000000
+75\%       38.000000
+max       80.000000
+Name: Age, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}在开始之前，我们先删除原始数据中没有用的信息，比如PassengerId, Name, Ticket}
+          \PY{n}{titanic\PYZus{}clean\PYZus{}df} \PY{o}{=} \PY{n}{gender\PYZus{}submission}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PassengerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{total\PYZus{}age\PYZus{}count} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+          \PY{n}{total\PYZus{}age\PYZus{}missed} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{total\PYZus{}age\PYZus{}count}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{有年龄纪录的数目是}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{, 丢失了}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{total\PYZus{}age\PYZus{}count}\PY{p}{,}\PY{n}{total\PYZus{}age\PYZus{}missed}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 按照上面的划分对数据进行初步加工,每个年龄阶段的所占比例，总数}
+          \PY{k}{def} \PY{n+nf}{change\PYZus{}age\PYZus{}category}\PY{p}{(}\PY{n}{age}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{age}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Child}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{elif} \PY{p}{(}\PY{n}{age} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{18} \PY{o+ow}{and} \PY{n}{age} \PY{o}{\PYZgt{}} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Teen}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{elif} \PY{p}{(}\PY{n}{age} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{60} \PY{o+ow}{and} \PY{n}{age} \PY{o}{\PYZgt{}} \PY{l+m+mi}{18}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adult}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{elif} \PY{p}{(}\PY{n}{age}\PY{o}{\PYZgt{}}\PY{l+m+mi}{60}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Senior}\PY{l+s+s1}{\PYZsq{}}
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 增加Age\PYZus{}level字段}
+          \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{change\PYZus{}age\PYZus{}category}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 画出不同年龄段人员的存活比例。}
+          \PY{n}{by\PYZus{}age} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{k}{print} \PY{n}{by\PYZus{}age}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{axis1}\PY{p}{,}\PY{n}{axis2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} 
+          \PY{n}{by\PYZus{}age}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axis1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 画出不同年龄段人员的存活和死亡对比，更加有参照性}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+有年龄纪录的数目是714, 丢失了177
+Age\_level
+Adult     0.388788
+Child     0.579710
+Senior    0.227273
+Teen      0.428571
+Name: Survived, dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}226}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c1e3d50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    观察： - 从上图可以看到，child存活下来的人多于死于灾难的人； -
+Teen虽然存活下来的人数少一些，也差不多很接近； -
+Adult存活下来的人要比灾难中死去的人少将近1/3； -
+老人的存活比例很低，可以说只有1/3不到。
+
+2）上图是有年龄的人员在714个记录下的情况，如果我们把没有年龄信息的人员补充进来，可以再看看这个存活比例。补充年龄的方法有好几种，都不是很完美：
+-
+按照以上划分求出不同年龄段的比例，假定人员年龄丢失的信息是按照这个比例，但是也有可能不是按照这个比例;
+- 按照当前均值来在一定范围补充随机值，原则上不改变最终年龄的均值。
+
+为了方便起见我们采用了第二种方式来补充年龄数据。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} 补充177个随机年龄到该矩阵来}
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 求年龄随机数，范围在 (mean \PYZhy{} 2std， mean + 2std)}
+          \PY{n}{average\PYZus{}age\PYZus{}titanic} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{std\PYZus{}age\PYZus{}titanic} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+          \PY{n}{rand\PYZus{}age} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{average\PYZus{}age\PYZus{}titanic} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{std\PYZus{}age\PYZus{}titanic}\PY{p}{,} \PY{n}{average\PYZus{}age\PYZus{}titanic} \PY{o}{+} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{std\PYZus{}age\PYZus{}titanic}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n}{total\PYZus{}age\PYZus{}missed}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 把NAN替换}
+          \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{rand\PYZus{}age}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 之后我们再看一下统计数据}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    891.000000
+mean      29.773479
+std       14.812861
+min        0.000000
+25\%       20.000000
+50\%       28.000000
+75\%       39.000000
+max       80.000000
+Name: Age, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/gaochuang/anaconda2/lib/python2.7/site-packages/ipykernel\_launcher.py:8: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  
+
+    \end{Verbatim}
+
+    确实的年龄数据补全了，平均值和方差没有太大变化，这时候我们再来看一下不同年龄阶段的生存率，是否有不一样的结果？
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} 对添加missed人进行人群划分}
+          \PY{k}{def} \PY{n+nf}{add\PYZus{}missed\PYZus{}age\PYZus{}category}\PY{p}{(}\PY{n}{passenger}\PY{p}{)}\PY{p}{:}
+              \PY{n}{age}\PY{p}{,} \PY{n}{age\PYZus{}level} \PY{o}{=} \PY{n}{passenger}
+              \PY{k}{if} \PY{n}{age\PYZus{}level} \PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{age\PYZus{}level} \PY{o}{=} \PY{n}{change\PYZus{}age\PYZus{}category}\PY{p}{(}\PY{n}{age}\PY{p}{)}
+          
+          \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age\PYZus{}level}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{add\PYZus{}missed\PYZus{}age\PYZus{}category}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{by\PYZus{}age\PYZus{}new} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{k}{print} \PY{n}{by\PYZus{}age\PYZus{}new}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 画出不同年龄段人员的存活比例}
+          \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{axis1}\PY{p}{,}\PY{n}{axis2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} 
+          \PY{n}{by\PYZus{}age}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axis1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 画出不同年龄段人员的存活和死亡对比，更加有参照性}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axis2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Age\_level
+Adult     0.388788
+Child     0.579710
+Senior    0.227273
+Teen      0.428571
+Name: Survived, dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}228}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1b6ef8d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} 最终打出不同年龄段的生还率}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Child（0～12）的存活率是 }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{by\PYZus{}age\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Child}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Teen (12\PYZti{}18) 的存活率是 }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{by\PYZus{}age\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Teen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Adult (19\PYZti{}59) 的存活率是 }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{by\PYZus{}age\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adult}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Senior (60岁以上) 的存活率是 }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{by\PYZus{}age\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Senior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Child（0～12）的存活率是 0.579710
+Teen (12\textasciitilde{}18) 的存活率是 0.428571
+Adult (19\textasciitilde{}59) 的存活率是 0.388788
+Senior (60岁以上) 的存活率是 0.227273
+
+    \end{Verbatim}
+
+    补充完数据再看看每个年龄段的存活率，基本没有改变，Child的存活率最高，超过50\%，接下来是Teen接近50\%，成年人的存活率排第三，是38.9\%,老年人的存活率最小，才22.7\%。
+
+因此我们可以猜测，在灾难发生的时候，小孩获得了更多的生还机会，受到了大家的保护，有些成年人把自己的生还机会让给了孩子。
+60岁上的老人可能是求生欲望不强，在灾难发生后无论是体力还是心力都不是很强，存活的几率不高。
+
+    \paragraph{-
+船舱等级的分析}\label{ux8239ux8231ux7b49ux7ea7ux7684ux5206ux6790}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{c+c1}{\PYZsh{}先看一下当前船舱相关的统计数据}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{by\PYZus{}pclass} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{k}{print} \PY{n}{by\PYZus{}pclass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3    491
+1    216
+2    184
+Name: Pclass, dtype: int64
+Pclass
+1    0.629630
+2    0.472826
+3    0.242363
+Name: Survived, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} 我们来画图，看看不同级别的生存数目和死亡人数之间的对比}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{factorplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 打印出不同船舱的存活率}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1级船舱的存活率是： }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{by\PYZus{}pclass}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2级船舱的存活率是： }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{by\PYZus{}pclass}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3级船舱的存活率是： }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{by\PYZus{}pclass}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1级船舱的存活率是： 0.629630
+2级船舱的存活率是： 0.472826
+3级船舱的存活率是： 0.242363
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    观察：
+无论从数据上还是看图，我们都发现1级船舱的存活率非常高，为63\%，二级船舱的存活率次之，也有47\%，三级船舱存活率才24\%，非常低。
+这也说明有钱人还是收到了更多照顾，也有可能一级船舱在船的上层，发生灾难的时候他们更容易逃离，即使排队获得救生艇的机会比下层船舱的乘客。
+
+    \paragraph{- 兄弟姐妹}\label{ux5144ux5f1fux59d0ux59b9}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{c+c1}{\PYZsh{}先看一下当前兄弟姐妹相关的统计数据}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{by\PYZus{}SibSp} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{k}{print} \PY{n}{by\PYZus{}SibSp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0    608
+1    209
+2     28
+4     18
+3     16
+8      7
+5      5
+Name: SibSp, dtype: int64
+SibSp
+0    0.345395
+1    0.535885
+2    0.464286
+3    0.250000
+4    0.166667
+5    0.000000
+8    0.000000
+Name: Survived, dtype: float64
+
+    \end{Verbatim}
+
+    从数据上看，孤独一个人的乘客占大多数，有608个；而有1个次之，209个，或者2个兄弟姐妹的人为28个，逐渐越来越少。
+从存活率上来看有一个兄弟姐们在船上的人存活率最高，超过一半，为53.59\%；
+有2个兄弟姐们在船上的人存活率接近一半，为第二，为46.42\%；
+人数最多的，孤独一个人的乘客只有1/3多一点，为34.53\%； 其他都比较差。
+我们来画图，这样更直观一些。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} 先画出根据兄弟姐们个数分类的人数对比柱状图}
+          \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{axis1}\PY{p}{,}\PY{n}{axis2}\PY{p}{,}\PY{n}{axis3}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} 
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total counts by siblings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 再画出根据兄弟姐们个数分类的总人数和存活人数对比图}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total counts Vs Survived by siblings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 最后我们画出根据兄弟姐们个数分类后的存活率}
+          \PY{n}{by\PYZus{}SibSp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis3}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Survived rate by Siblings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}233}]:} Text(0.5,1,u'The Survived rate by Siblings')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{-
+父母或者孩子在船舱个数}\label{ux7236ux6bcdux6216ux8005ux5b69ux5b50ux5728ux8239ux8231ux4e2aux6570}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{c+c1}{\PYZsh{}先看一下当前父母孩子们个数相关的统计数据}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{by\PYZus{}Parch} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{k}{print} \PY{n}{by\PYZus{}Parch}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0    678
+1    118
+2     80
+5      5
+3      5
+4      4
+6      1
+Name: Parch, dtype: int64
+Parch
+0    0.343658
+1    0.550847
+2    0.500000
+3    0.600000
+4    0.000000
+5    0.200000
+6    0.000000
+Name: Survived, dtype: float64
+
+    \end{Verbatim}
+
+    \textbf{观察：} 1. 人员占比 -
+没有父母或者孩子在船舱的人最多，678个和上面兄弟姐们的数据几乎是一致的，占76\%；
+-
+其次是有一个在船上，或者父子两人，父女两人，或者母子两人，或者母女两人，他们差不多有118人，占总人数的13\%
+- 有两个在船上80人，占9.0\%左右； -
+剩下加起来1\%～2\%，从统计学的角度看，样本量太少，可以忽略不计。 2.
+存活率比较： -
+有3个孩子或者父母孩子加起来是4个的在船上的存活率最高，差不多60\%，但是样本量太少，先暂时忽略；
+- 有一个或者2个存活率很接近，都超过了50\%，这个数据还是很能说明问题； -
+没有孩子在船上的,存活率很低，1/3强，34.36\%。
+因此可以看到有孩子的比没有孩子在船上的存活率要高，是不是因为孩子在船上，必须要想办法寻找各种办法让孩子活下去，也符合我们之前的发现，孩子的存活率高的观察。
+下面我们画图来观察一下。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} 先画出根据父母孩子们个数分类的人数对比柱状图}
+          \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{axis1}\PY{p}{,}\PY{n}{axis2}\PY{p}{,}\PY{n}{axis3}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} 
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 再画出根据父母孩子们个数分类的总人数和存活人数对比图}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axis2}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 最后我们画出根据父母孩子们个数分类后的存活率}
+          \PY{n}{by\PYZus{}Parch}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Survived rate by Parents and Children}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{- 乘客票务花费}\label{ux4e58ux5ba2ux7968ux52a1ux82b1ux8d39}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{c+c1}{\PYZsh{}先看一下当前父母孩子们个数相关的统计数据}
+          \PY{k}{print} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    891.000000
+mean      32.204208
+std       49.693429
+min        0.000000
+25\%        7.910400
+50\%       14.454200
+75\%       31.000000
+max      512.329200
+Name: Fare, dtype: float64
+
+    \end{Verbatim}
+
+    从统计数据来看，std比mean还大，说明这个数据比较分散，不能用上面的方法进行分类进行分析。其实票务花费应该和船舱级别是挂钩的，我们看看他们之间有什么关系。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}看看船票费用的分布}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}画出船票费用和船舱级别的关系}
+          \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{column}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{showfliers}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    从上面两张图可以可以看到，很多人套了很少的钱上船，不到20，2级和3级船舱的船票集中在25英镑以下。
+另外，目前还看不到票价和存活率有什么关系？下面我们继续挖掘。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{n}{by\PYZus{}Fare} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{k}{print} \PY{n}{by\PYZus{}Fare}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}开始画图，先画一下生死两种人的平均船票价格}
+          \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{axis1}\PY{p}{,}\PY{n}{axis2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} 
+          \PY{n}{by\PYZus{}Fare}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axis1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} 由于船票价格浮动太大，我们在用统计学的工具来看看，生死两种人大概的船票价格区间}
+          \PY{n}{fare\PYZus{}not\PYZus{}survived} \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fare}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{fare\PYZus{}survived}     \PY{o}{=} \PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fare}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{titanic\PYZus{}clean\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n}{avgerage\PYZus{}fare} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{fare\PYZus{}not\PYZus{}survived}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fare\PYZus{}survived}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{std\PYZus{}fare}      \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{fare\PYZus{}not\PYZus{}survived}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fare\PYZus{}survived}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{avgerage\PYZus{}fare}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{yerr}\PY{o}{=}\PY{n}{std\PYZus{}fare}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{legend}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axis2}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Survived
+0    22.117887
+1    48.395408
+Name: Fare, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{观察：}
+无论是从均值还是船票区间来看，存活下来的人的船票价格要高于死去的人，他们的船票价格在0到55之间，而死去的大部分在20以下。如果和船舱级别挂钩的话，由于船票价格低，大部分人在2级和3级船舱，而掏更多钱买票的人基本在1级船舱，他们的存活率因此比较高。
+
+    \subsubsection{分析总结}\label{ux5206ux6790ux603bux7ed3}
+
+总结分为两个部分，分别是本次数据分析得出的规律和对于分析的限制性进行讨论。
+
+\paragraph{- 数据分析总结}\label{ux6570ux636eux5206ux6790ux603bux7ed3}
+
+本次分析主要探寻泰坦尼克号上的生还率和各因素：性别、年龄、客舱等级、兄弟姐妹个数、父母孩子个数、船票价格的关系。
+
+样本数量为 891，海难发生后，生还者还剩 342 人，生还率为：
+\textbf{38\%}。
+
+\textbf{性别}： 在891人中，男性共577人，女性314人，男女比例为 65\% 和
+35\%。海难发生后，男性存活了109人，女性为233人，男女比例变为 32\% 和
+68\%。男性生还率仅为\textbf{19\%}，女性生还率为
+\textbf{74\%}，远远高于男性的
+19\%。可见女性比男性在这次事故中更容易生还，表明``女士优先''的原则在本次事故中得到了发扬。
+
+\textbf{年龄}： -
+在891人当中，有年龄数据记录总共是714，缺失了177条记录，平均年龄约为 30
+岁， 标准差 15 岁。 -
+年龄分布太散，从0.42到85岁，因此我们把此数据做了加工，一方面补充众数，一方面重新划分了四个年龄段：小孩（12岁以下），青少年（12岁到18岁），成年（19岁到60岁）和老年（60岁以上）；
+-
+按照此年龄划分，我们发现儿童的成活率最高，为\textbf{58\%}，接下来是青少年为\textbf{423\%}，老年人最低才\textbf{23\%}
+以上我们可以推断出，当事故发生的时候，绝大多数人还是听从船长的指挥和号召：让女人和孩子先走，另外也反映了当时社会的文明程度。
+
+\textbf{船舱等级}： 泰坦尼克号上有三种船舱类型。海难发生前，一等舱有 216
+人，二等舱 184 人，三等舱 491 人，分别占总人数的 24\%， 21\%，
+55\%。海难发生后，一等舱、二等舱、三等舱的乘客人数变为136、87、119人，分别占总人数的
+40\%, 25\%, 35\%。一等舱生还率为 63\%，二等舱为 47\%，三等舱为
+24\%。可见客舱等级越高，生还率越高。
+
+\textbf{兄弟姐妹个数}： -
+孤独一个人的乘客占大多数，有608个；而有1个次之，209个，或者2个兄弟姐妹的人为28个，逐渐越来越少。
+-
+从存活率上来看有一个兄弟姐们在船上的人存活率最高，超过一半，为53.59\%；
+有2个兄弟姐们在船上的人存活率接近一半，为第二，为46.42\%； -
+人数最多的，孤独一个人的乘客只有1/3多一点，为34.53\%； 其他都比较差。
+总之，有兄弟姐妹的乘客的生还几率要高于孤独乘客，这里面具体人文原因需要进一步挖掘和探索。
+
+\textbf{父母和子女同乘} -
+没有父母或者孩子在船舱的人最多，678个和上面兄弟姐们的孤独数据几乎是一致的，占76\%；
+- 但是没有父母子女同船的乘客，仅生还 233 人，生还率为 34\%。 -
+而有父母或子女同船的乘客都超过了50\%，尤其是有3个的，都快到了60\%。
+因此，有父母或者子女同乘的生还率要远高于孤独乘客。
+
+\textbf{票价} -
+一方面票价的分布也比较散，和船舱级别有一定的关联度，2级和3级船舱的票价集中在25以下；
+-
+另外一方面，生还下来的人他们的船票价格要高于死去的乘客，无论从均值还是区间范围。
+因此，可以推测票价和船舱级别挂钩，由于船票价格低，大部分人在2级和3级船舱，而掏更多钱买票的人基本在1级船舱，他们的存活率因此比较高。
+
+\paragraph{分析限制讨论}\label{ux5206ux6790ux9650ux5236ux8ba8ux8bba}
+
+此数据并非全部乘客的数据，据了解，泰坦尼克号上共有乘客 2224
+人，而本数据集共有 891 人。 - 如果该数据集是从 2224
+人中随机选出，根据中心极限定理，该样本也足够大，分析结果有代表性； -
+如果不是随机选出，那么分析结果就不可靠了。
+
+另外此分析忽略了cabin船舱号和离岸港口，姓名的分析，一方面是cabin的数据很少不全，另外一方面这些分析要结合船舱结构、历史和地理知识，由于本人对这部分不是很熟悉，担心解释不了分析结果，其实分析的路子是一样的。
+因此可能还有其他因素影响生还情况，还可以继续寻找数据继续探索。
+
+    \subsubsection{参考文献}\label{ux53c2ux8003ux6587ux732e}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://seaborn.pydata.org}{seaborn 官方文档}
+\item
+  \href{http://pandas.pydata.org}{pandas 官方文档}
+\item
+  \href{https://www.jianshu.com/p/9a5bce0de13f?utm_campaign=maleskine\&utm_content=note\&utm_medium=seo_notes\&utm_source=recommendation}{泰坦尼克号乘客生存分析------用机器学习告诉你，如果你在当时的船上，有多大机率生还？}
+\item
+  \href{http://blog.51cto.com/youerning/1711371}{python数据分析实战之泰坦尼克号统计}
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
